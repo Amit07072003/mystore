@@ -27,7 +27,7 @@ public class User extends BaseModel {
     @JoinTable(
         name = "user_role_list", // explicit join table
         joinColumns = @JoinColumn(name = "user_id"), // FK to User
-        inverseJoinColumns = @JoinColumn(name = "role_id") // FK to Role
+        inverseJoinColumns = @JoinColumn(name = "role_list_id") // FK to Role
     )
     private List<Role> roleList = new ArrayList<>();
 }
