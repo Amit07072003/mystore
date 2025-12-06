@@ -1,3 +1,9 @@
+// ===== Config: Dynamic API Base URL =====
+const API_BASE_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:8080"
+    : "https://mystore-2aa1.onrender.com";
+
 // ===== Get product ID from URL =====
 const params = new URLSearchParams(window.location.search);
 const productId = params.get('id');
@@ -7,7 +13,7 @@ let isLoggedIn = false;
 // ===== Fetch User Info =====
 async function fetchUserInfo() {
     try {
-        const res = await fetch('http://localhost:8080/auth/validateToken', {
+        const res = await fetch(`${API_BASE_URL}/auth/validateToken`, {
             method: 'POST',
             credentials: 'include'
         });
@@ -28,7 +34,7 @@ async function fetchUserInfo() {
 // ===== Fetch Cart Count =====
 async function updateCartCount() {
     try {
-        const res = await fetch('http://localhost:8080/api/cart/count', {
+        const res = await fetch(`${API_BASE_URL}/api/cart/count`, {
             method: 'GET',
             credentials: 'include'
         });
@@ -45,7 +51,7 @@ async function updateCartCount() {
 // ===== Fetch Product Data =====
 async function fetchProduct() {
     try {
-        const res = await fetch(`http://localhost:8080/api/products/${productId}`, { credentials: 'include' });
+        const res = await fetch(`${API_BASE_URL}/api/products/${productId}`, { credentials: 'include' });
         if (!res.ok) throw new Error('Product not found');
 
         const product = await res.json();
@@ -73,7 +79,7 @@ document.getElementById('addToCartBtn').addEventListener('click', async () => {
     }
 
     try {
-        const res = await fetch(`http://localhost:8080/api/cart/add?productId=${productId}&quantity=1`, {
+        const res = await fetch(`${API_BASE_URL}/api/cart/add?productId=${productId}&quantity=1`, {
             method: 'POST',
             credentials: 'include'
         });
@@ -88,7 +94,7 @@ document.getElementById('addToCartBtn').addEventListener('click', async () => {
 
 // ===== Logout =====
 document.getElementById('logoutBtn')?.addEventListener('click', async () => {
-    await fetch('http://localhost:8080/auth/logout', { method: 'POST', credentials: 'include' });
+    await fetch(`${API_BASE_URL}/auth/logout`, { method: 'POST', credentials: 'include' });
     isLoggedIn = false;
     document.getElementById('userEmail').innerText = 'Guest';
     document.getElementById('dropdownEmail').innerText = 'Guest';
