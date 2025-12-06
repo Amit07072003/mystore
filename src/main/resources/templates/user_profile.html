@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: { display: ["Work Sans"] },
+                },
+            },
+        };
+
+        // Fetch user details dynamically from backend
+        async function loadUserProfile() {
+            const token = localStorage.getItem("jwtToken"); // saved at login
+            if (!token) {
+                alert("User not logged in!");
+                return;
+            }
+
+            try {
+                const response = await fetch("/user_profile", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    alert("Session expired or invalid. Please login again.");
+                    window.location.href = "/login";
+                    return;
+                }
+
+                // Update dropdown with email
+                document.getElementById("user-email").innerText = data.email || "User";
+
+                // Fill profile form fields
+                document.getElementById("first-name").value = data.firstName || "";
+                document.getElementById("last-name").value = data.lastName || "";
+                document.getElementById("email").value = data.email || "";
+                document.getElementById("phone").value = data.phone || "";
+
+            } catch (err) {
+                console.error("Error fetching profile:", err);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", loadUserProfile);
+    </script>
+    <title>User Profile</title>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="flex flex-col min-h-screen">
+    <!-- Navbar -->
+    <header class="bg-white/80 dark:bg-background-dark/80 backdrop-blur-sm sticky top-0 z-10 border-b border-gray-200 dark:border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-4">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">AkWorld</h2>
+                </div>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary transition-colors" href="/home">Home</a>
+                    <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary transition-colors" href="#">Men</a>
+                    <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary transition-colors" href="#">Women</a>
+                    <a class="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary transition-colors" href="#">Sale</a>
+                </nav>
+                <div class="relative">
+                    <!-- Dropdown -->
+                    <button id="dropdown-button" class="p-2 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2">
+                        <svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path>
+                        </svg>
+                        <span id="user-email" class="text-sm font-medium">Loading...</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Profile Page -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">My Account</h1>
+            <div class="border-b border-gray-200 dark:border-gray-700">
+                <nav class="-mb-px flex space-x-8">
+                    <a class="border-primary text-primary py-4 px-1 border-b-2 font-medium text-sm" href="#"> Account Details </a>
+                    <a class="text-gray-500 hover:text-gray-700 py-4 px-1 border-b-2 font-medium text-sm" href="#"> Orders </a>
+                    <a class="text-gray-500 hover:text-gray-700 py-4 px-1 border-b-2 font-medium text-sm" href="#"> Wishlist </a>
+                </nav>
+            </div>
+
+            <!-- Forms -->
+            <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                <!-- Profile Info -->
+                <div class="space-y-6">
+                    <h2 class="text-xl font-bold">Personal Information</h2>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="first-name" class="block text-sm font-medium mb-1">First Name</label>
+                            <input id="first-name" type="text" class="block w-full rounded border-gray-300 bg-white shadow-sm focus:border-primary focus:ring-primary sm:text-sm"/>
+                        </div>
+                        <div>
+                            <label for="last-name" class="block text-sm font-medium mb-1">Last Name</label>
+                            <input id="last-name" type="text" class="block w-full rounded border-gray-300 bg-white shadow-sm focus:border-primary focus:ring-primary sm:text-sm"/>
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium mb-1">Email</label>
+                            <input id="email" type="email" class="block w-full rounded border-gray-300 bg-white shadow-sm focus:border-primary focus:ring-primary sm:text-sm"/>
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium mb-1">Phone</label>
+                            <input id="phone" type="tel" class="block w-full rounded border-gray-300 bg-white shadow-sm focus:border-primary focus:ring-primary sm:text-sm"/>
+                        </div>
+                        <button type="submit" class="px-4 py-2 rounded text-white bg-primary hover:bg-primary/90">Save Changes</button>
+                    </form>
+                </div>
+
+                <!-- Change Password -->
+                <div class="space-y-6">
+                    <h2 class="text-xl font-bold">Change Password</h2>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="current-password" class="block text-sm font-medium mb-1">Current Password</label>
+                            <input id="current-password" type="password" class="block w-full rounded border-gray-300 bg-white shadow-sm focus:border-primary focus:ring-primary sm:text-sm"/>
+                        </div>
+                        <div>
+                            <label for="new-password" class="block text-sm font-medium mb-1">New Password</label>
+                            <input id="new-password" type="password" class="block w-full rounded border-gray-300 bg-white shadow-sm focus:border-primary focus:ring-primary sm:text-sm"/>
+                        </div>
+                        <div>
+                            <label for="confirm-password" class="block text-sm font-medium mb-1">Confirm Password</label>
+                            <input id="confirm-password" type="password" class="block w-full rounded border-gray-300 bg-white shadow-sm focus:border-primary focus:ring-primary sm:text-sm"/>
+                        </div>
+                        <button type="submit" class="px-4 py-2 rounded text-white bg-primary hover:bg-primary/90">Update Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

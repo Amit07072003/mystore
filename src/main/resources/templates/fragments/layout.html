@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="${pageTitle}">Akworld</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<header>
+    <h1><a th:href="@{/}">Akworld</a></h1>
+    <nav>
+        <a th:href="@{/products/view}">Products</a>
+        <a th:href="@{/products/view/create}">Create Product</a>
+    </nav>
+</header>
+
+<main>
+    <div th:replace="${content}"></div>
+</main>
+
+<footer>
+    <p>© 2025 Akworld. All rights reserved.</p>
+</footer>
+</body>
+</html>

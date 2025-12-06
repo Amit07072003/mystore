@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Success</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- your main CSS -->
+    <style>
+        body {
+            background-color: #f6f7f8;
+            font-family: Arial, sans-serif;
+        }
+        .success-container {
+            max-width: 600px;
+            margin: 50px auto;
+            text-align: center;
+        }
+        .card-sh {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .btn {
+            padding: 10px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 5px;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #1173d4;
+            color: white;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        h2.text-success {
+            color: #28a745;
+        }
+        .order-details {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .order-details p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <a href="/home" class="btn btn-primary">Home</a>
+        <a href="/cart" class="btn btn-secondary">Cart</a>
+        <a href="/user_profile" class="btn btn-secondary">Profile</a>
+    </nav>
+</header>
+
+<div class="success-container">
+    <div class="card-sh">
+        <h2 class="text-success">Thank you for your order!</h2>
+        <p>Your payment was successful.</p>
+
+        <div class="order-details">
+<!--            <p><strong>Order ID:</strong> [[${razorpayReferenceId}]]</p>-->
+            <p><strong>Amount Paid:</strong> ₹[[${amount}]]</p>
+            <p><strong>Payment Status:</strong> [[${razorpayStatus}]]</p>
+        </div>
+
+        <div class="buttons">
+            <a href="/home" class="btn btn-primary">Continue Shopping</a>
+            <a href="/user_profile/orders" class="btn btn-secondary">View Orders</a>
+        </div>
+    </div>
+</div>
+
+<footer style="text-align:center; margin-top:50px;">
+    <p>&copy; 2025 YourEcommerce. All rights reserved.</p>
+</footer>
+</body>
+</html>

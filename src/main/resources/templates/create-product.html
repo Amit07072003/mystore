@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Product - Seller/Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: #fff;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        h1 { text-align: center; margin-bottom: 20px; font-size: 1.6rem; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 6px; font-weight: 600; color: #333; }
+        input, textarea {
+            width: 100%; padding: 10px; border: 1.5px solid #ddd; border-radius: 8px;
+            font-size: 15px; transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input:focus, textarea:focus {
+            outline: none; border-color: #007bff; box-shadow: 0 0 0 2px rgba(0,123,255,0.2);
+        }
+        .btn { padding: 12px; border-radius: 8px; border: none; font-weight: 600; font-size: 15px;
+            cursor: pointer; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+        .btn-submit { background: #007bff; color: #fff; flex: 1; }
+        .btn-submit:hover { background: #0056b3; transform: translateY(-1px); }
+        .btn-back { background: #e0e0e0; color: #333; text-decoration: none; flex: 1;
+            text-align: center; display: inline-flex; align-items: center; justify-content: center; }
+        .btn-back:hover { background: #d5d5d5; transform: translateY(-1px); }
+        .btn-group { display: flex; gap: 10px; margin-top: 20px; }
+        .message { text-align: center; margin-top: 12px; font-weight: bold; }
+        .success { color: green; } .error { color: red; }
+        @media (max-width: 576px) { .btn-group { flex-direction: column; } .btn { width: 100%; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Create Product</h1>
+    <form id="productForm">
+        <!-- Seller ID injected via Thymeleaf -->
+        <input type="hidden" id="sellerId" th:value="${product.sellerId}" />
+
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" id="name" required>
+        </div>
+
+        <div class="form-group">
+            <label>Description:</label>
+            <textarea id="description" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Price:</label>
+            <input type="number" step="0.01" id="price" required>
+        </div>
+
+        <div class="form-group">
+            <label>Stock Quantity:</label>
+            <input type="number" id="stockQuantity" required>
+        </div>
+
+        <div class="form-group">
+            <label>Category ID:</label>
+            <input type="number" id="categoryId" required>
+        </div>
+
+        <div class="form-group">
+            <label>Image URL:</label>
+            <input type="text" id="imageUrl">
+        </div>
+
+        <!-- Buttons -->
+        <div class="btn-group">
+            <button type="submit" class="btn btn-submit">Create Product</button>
+            <!-- Single back button -->
+            <a th:href="@{${dashboardUrl}}" class="btn btn-back">⬅ Back</a>
+        </div>
+
+    </form>
+
+    <p id="message" class="message"></p>
+</div>
+
+<script>
+    const form = document.getElementById('productForm');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const productDTO = {
+            name: document.getElementById('name').value.trim(),
+            description: document.getElementById('description').value.trim(),
+            price: parseFloat(document.getElementById('price').value),
+            stockQuantity: parseInt(document.getElementById('stockQuantity').value),
+            categoryId: parseInt(document.getElementById('categoryId').value),
+            sellerId: parseInt(document.getElementById('sellerId').value),
+            imageUrl: document.getElementById('imageUrl').value.trim()
+        };
+
+        try {
+            const response = await fetch('/api/products', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(productDTO),
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                message.textContent = 'Product created successfully!';
+                message.className = 'message success';
+                form.reset();
+            } else {
+                const error = await response.json();
+                message.textContent = error.message || 'Failed to create product.';
+                message.className = 'message error';
+            }
+        } catch (err) {
+            message.textContent = 'Error: ' + err.message;
+            message.className = 'message error';
+            console.error("Fetch Error:", err);
+        }
+    });
+</script>
+
+</body>
+</html>

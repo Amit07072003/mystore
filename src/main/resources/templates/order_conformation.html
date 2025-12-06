@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>AkWorld - Order Confirmation</title>
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+    <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Work+Sans:wght@400;500;600;700" onload="this.rel='stylesheet'" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "foreground-light": "#111418",
+                        "foreground-dark": "#ffffff",
+                        "subtle-light": "#617589",
+                        "subtle-dark": "#a0b3c6",
+                        "border-light": "#dbe0e6",
+                        "border-dark": "#2d3748"
+                    },
+                    fontFamily: {
+                        "display": ["Work Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                    'FILL' 0,
+                    'wght' 400,
+                    'GRAD' 0,
+                    'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-foreground-light dark:text-foreground-dark">
+<div class="flex flex-col min-h-screen">
+    <header class="border-b border-border-light dark:border-border-dark">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-4">
+                    <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="currentColor"></path>
+                    </svg>
+                    <h1 class="text-2xl font-bold">AkWorld</h1>
+                </div>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a class="text-sm font-medium hover:text-primary" href="#">New Arrivals</a>
+                    <a class="text-sm font-medium hover:text-primary" href="#">Featured</a>
+                    <a class="text-sm font-medium hover:text-primary" href="#">Men</a>
+                    <a class="text-sm font-medium hover:text-primary" href="#">Women</a>
+                    <a class="text-sm font-medium hover:text-primary" href="#">Accessories</a>
+                    <a class="text-sm font-medium hover:text-primary" href="#">Sale</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <button class="p-2 rounded-full hover:bg-primary/10 dark:hover:bg-primary/20">
+                        <span class="material-symbols-outlined">favorite</span>
+                    </button>
+                    <button class="p-2 rounded-full hover:bg-primary/10 dark:hover:bg-primary/20">
+                        <span class="material-symbols-outlined">shopping_bag</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-2xl space-y-8">
+            <div class="bg-white dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg shadow-lg p-8 text-center">
+                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-primary/10 mb-6">
+                    <span class="material-symbols-outlined text-primary text-4xl">check_circle</span>
+                </div>
+                <h2 class="text-3xl font-bold text-foreground-light dark:text-foreground-dark mb-2">Thank you for your order!</h2>
+                <p class="text-subtle-light dark:text-subtle-dark">
+                    Your order <span class="font-semibold text-foreground-light dark:text-foreground-dark">#123456789</span> has been placed. You will receive an email confirmation shortly.
+                </p>
+            </div>
+            <div class="bg-white dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg shadow-lg p-8 space-y-6">
+                <h3 class="text-xl font-bold text-foreground-light dark:text-foreground-dark">Order Details</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center border-b border-border-light dark:border-border-dark pb-4">
+                        <span class="text-subtle-light dark:text-subtle-dark">Order Number</span>
+                        <span class="font-medium text-foreground-light dark:text-foreground-dark">#123456789</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-border-light dark:border-border-dark pb-4">
+                        <span class="text-subtle-light dark:text-subtle-dark">Order Date</span>
+                        <span class="font-medium text-foreground-light dark:text-foreground-dark">July 26, 2024</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-border-light dark:border-border-dark pb-4">
+                        <span class="text-subtle-light dark:text-subtle-dark">Total</span>
+                        <span class="font-medium text-foreground-light dark:text-foreground-dark">$120.00</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-border-light dark:border-border-dark pb-4">
+                        <span class="text-subtle-light dark:text-subtle-dark">Payment Method</span>
+                        <span class="font-medium text-foreground-light dark:text-foreground-dark">Credit Card</span>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <span class="text-subtle-light dark:text-subtle-dark">Shipping Address</span>
+                        <span class="font-medium text-right text-foreground-light dark:text-foreground-dark">123 Elm Street, Anytown, USA</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg shadow-lg p-8 space-y-6">
+                <h3 class="text-xl font-bold text-foreground-light dark:text-foreground-dark">Items Ordered</h3>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-lg bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCl5S7UfNVXqxUfi0vSZQIFwctRqQePek0OLfoc3CmZEwldaGKn-3yRlXZ2SObc5T6ez-KJ6amWu7p9MdFGv74Tp-tptvqnc7_32RbTJK5Bas2oIcdnsWm_FLGa3_fKLS8IbV3JaIB2zs2uEF4PyVuEb0IxRvSaFgkofHea6_AxAB5tC_FpCDHpdyW59jPyHy6yt6Oa4OtGl7P7Nx98NvWPjZKOQ5QJD_FV_gqNENTOGS5mgEod8nmAzn98Jpo-WaLnHgUnoAxoUMwj");'></div>
+                        <div class="flex-1">
+                            <p class="font-medium text-foreground-light dark:text-foreground-dark">Classic White T-Shirt</p>
+                            <p class="text-sm text-subtle-light dark:text-subtle-dark">Size M</p>
+                        </div>
+                        <p class="font-medium text-foreground-light dark:text-foreground-dark">$20.00</p>
+                    </li>
+                    <li class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-lg bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD675GqZSPYHGMRoeQsEp84MSmtIDgpFxJ68jQUiOamf0Wuln66PgouUaG3uiDxMPTF2UDuY0Qf6MITCDiRGrsEV4idjrL0G9KOKfF5vy6eiFMZGwQKJn7ZvLzyeourgLt-OkxRtswyxnezQQKEwlXClBURF2oZD54_gXioBYmbDMvWuVJIsccYvpa2BCx-54I7Rdpl_WhtyHYMFZlMOua4cEywzZLxoIQE5NkpOTZEg2XhblkKamvg5gxZqb4ixA-V07c9MquJLnE-");'></div>
+                        <div class="flex-1">
+                            <p class="font-medium text-foreground-light dark:text-foreground-dark">Running Shoes</p>
+                            <p class="text-sm text-subtle-light dark:text-subtle-dark">Size 9</p>
+                        </div>
+                        <p class="font-medium text-foreground-light dark:text-foreground-dark">$100.00</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="w-full sm:w-auto flex-1 inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                    View Order
+                </button>
+                <button class="w-full sm:w-auto flex-1 inline-flex justify-center items-center px-6 py-3 border border-border-light dark:border-border-dark text-base font-medium rounded-lg text-foreground-light dark:text-foreground-dark bg-background-light dark:bg-background-dark hover:bg-primary/10 dark:hover:bg-primary/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                    Continue Shopping
+                </button>
+            </div>
+        </div>
+    </main>
+</div>
+
+</body></html>

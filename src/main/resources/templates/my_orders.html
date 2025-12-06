@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akworld - E-Commerce</title>
+    <link rel="stylesheet" th:href="@{/css/orders.css}">
+</head>
+<body>
+
+<header style="padding:12px 20px;background:#007bff;color:#fff;">
+    <h2 onclick="window.location.href='/home'">Akworld</h2>
+</header>
+
+<div style="text-align: center;"><h3>My Orders</h3></div>
+
+<main style="padding:20px;max-width:900px;margin:auto;">
+
+    <div id="ordersContainer"></div>
+
+    <div id="emptyState" style="display:none;text-align:center;margin-top:40px;">
+        <h4>No orders found</h4>
+        <p>You have not placed any orders yet.</p>
+    </div>
+
+</main>
+
+<div style="text-align: center;">
+    <button
+            onclick="window.location.href='/home'"
+            style="
+      background-color:#f44336;
+      color:#fff;
+      border:none;
+      border-radius:25px;
+      padding:0.6rem 1.5rem;
+      font-size:1rem;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 2px 6px rgba(0,0,0,0.2);
+    "
+    >
+        BackToHome
+    </button>
+</div>
+
+
+<script th:src="@{/js/my_orders.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Akworld</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/admin-dashboard.css">
+
+</head>
+
+<body>
+<header class="header">
+    <div class="d-flex align-items-center gap-2">
+        <button class="hamburger" id="sidebarToggle">☰</button>
+        <div class="logo" onclick="window.location.href='/'">Akworld Admin</div>
+    </div>
+    <div class="user-info">
+        <span sec:authentication="name">Admin</span>
+        <button id="logoutBtn">Logout</button>
+    </div>
+</header>
+
+<aside class="sidebar" id="sidebar">
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showSection('dashboardHome')">Dashboard Home</a></li>
+            <li><a href="#" onclick="showSection('manageProducts')">Manage Products</a></li>
+            <li><a href="#" onclick="showSection('manageCategories')">Manage Categories</a></li>
+            <li><a href="#" onclick="showSection('viewOrders')">View Orders</a></li>
+            <li><a href="#" onclick="showSection('manageUsers')">Manage Users</a></li>
+        </ul>
+    </nav>
+</aside>
+
+<main class="main-content">
+    <!-- Dashboard Home -->
+    <section id="dashboardHome" class="section active">
+        <h2>Welcome to your Dashboard: <span sec:authentication="name">Admin</span></h2>
+        <p>Use the sidebar to manage products, categories, orders, and users.</p>
+    </section>
+
+    <!-- Products -->
+    <section id="manageProducts" class="section">
+        <h2>Products</h2>
+        <a href="/products/view/create" class="btn btn-primary mb-3">Add Product</a>
+        <table>
+            <thead>
+            <tr><th>ID</th><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th>Actions</th></tr>
+            </thead>
+            <tbody id="productsTable"></tbody>
+        </table>
+    </section>
+
+    <!-- Categories -->
+    <section id="manageCategories" class="section">
+        <h2>Categories</h2>
+        <a href="/admin/create" class="btn btn-success mb-3">➕ Add Category</a>
+        <table>
+            <thead><tr><th>ID</th><th>Name</th><th>Actions</th></tr></thead>
+            <tbody id="categoriesTable"></tbody>
+        </table>
+    </section>
+
+    <!-- Orders -->
+    <section id="viewOrders" class="section">
+        <h2>Orders</h2>
+        <table>
+            <thead><tr><th>Order ID</th><th>User</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="ordersTable"></tbody>
+        </table>
+    </section>
+
+    <!-- Users -->
+    <section id="manageUsers" class="section">
+        <h2>Users</h2>
+        <table>
+            <thead><tr><th>User ID</th><th>Email</th><th>Roles</th><th>Actions</th></tr></thead>
+            <tbody id="usersTable"></tbody>
+        </table>
+    </section>
+</main>
+
+<!-- User Roles Modal -->
+<div id="userRolesModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeUserRolesModal()">&times;</span>
+        <h3>Edit Roles</h3>
+        <form id="userRolesForm">
+            <input type="hidden" name="userId">
+            <label>Roles (comma separated):</label>
+            <input type="text" name="roles" class="form-control mb-3">
+            <button type="submit" class="btn btn-primary w-100">Save Roles</button>
+        </form>
+    </div>
+</div>
+
+<script th:src="@{/js/admin-dashboard.js}"></script>
+
+</body>
+</html>

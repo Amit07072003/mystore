@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AkWorld - Create Account</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1e293b"
+                    },
+                    fontFamily: { "display": ["Work Sans"] },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }
+                },
+            },
+        }
+    </script>
+    <style>
+        .form-input::placeholder { color: #9ca3af; }
+        .dark .form-input::placeholder { color: #6b7280; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+
+<div class="flex flex-col min-h-screen">
+    <!-- Navbar -->
+    <header class="w-full bg-primary shadow-sm">
+        <div class="container mx-auto flex items-center justify-between px-6 py-4">
+            <h1 class="text-2xl font-bold text-white cursor-pointer" onclick="window.location.href='/home'">
+                AkWorld
+            </h1>
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="/home" class="text-white hover:text-gray-200 transition-colors">Home</a>
+                <a href="/about" class="text-white hover:text-gray-200 transition-colors">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Registration Card -->
+    <main class="flex flex-1 items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-md bg-card-light dark:bg-card-dark p-8 rounded-xl shadow-lg space-y-6">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Create Account</h2>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                    Already have an account?
+                    <a href="/login" class="text-primary font-medium hover:text-primary/80">Sign In</a>
+                </p>
+            </div>
+
+            <form id="registerForm" class="space-y-4">
+                <input id="name" name="name" placeholder="Full Name" required type="text"
+                       class="form-input w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 bg-card-light dark:bg-background-dark text-gray-900 dark:text-white focus:border-primary focus:ring-primary focus:outline-none"/>
+                <input id="email" name="email" placeholder="Email address" required type="email"
+                       class="form-input w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 bg-card-light dark:bg-background-dark text-gray-900 dark:text-white focus:border-primary focus:ring-primary focus:outline-none"/>
+                <input id="password" name="password" placeholder="Password" required type="password"
+                       class="form-input w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 bg-card-light dark:bg-background-dark text-gray-900 dark:text-white focus:border-primary focus:ring-primary focus:outline-none"/>
+                <input id="phoneNumber" name="phoneNumber" placeholder="Phone Number" required type="text"
+                       class="form-input w-full rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-3 bg-card-light dark:bg-background-dark text-gray-900 dark:text-white focus:border-primary focus:ring-primary focus:outline-none"/>
+
+                <button type="submit"
+                        class="w-full py-3 px-4 rounded-lg bg-primary text-white font-semibold hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-300">
+                    Create Account
+                </button>
+            </form>
+        </div>
+    </main>
+</div>
+
+<script>
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const data = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+            phoneNumber: document.getElementById('phoneNumber').value
+        };
+
+        try {
+            const response = await fetch('/auth/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (response.ok) {
+                alert('Account created successfully!');
+                window.location.href = '/login';
+            } else {
+                const error = await response.text();
+                alert('Error: ' + error);
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Something went wrong.');
+        }
+    });
+</script>
+
+</body>
+</html>

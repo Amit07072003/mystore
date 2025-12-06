@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akworld - E-Commerce</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/popup.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+
+</head>
+<body>
+
+<!-- Include Navbar -->
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<!-- Filters Panel -->
+<section class="filters">
+    <div class="filters-toggle" id="filtersToggle">
+        <span>Filters & Sort</span>
+        <span class="toggle-icon">&#9660;</span>
+    </div>
+    <div class="filters-content" id="filtersContent">
+        <!-- Category Filter (Dropdown) -->
+        <div class="filter-group">
+            <label for="filterCategory">Category</label>
+            <select id="filterCategory">
+                <option value="">All Categories</option>
+            </select>
+        </div>
+
+        <!-- Price Filter -->
+        <div class="filter-group price-group">
+            <label>Price Range</label>
+            <div class="price-inputs">
+                <input type="number" id="minPrice" placeholder="Min">
+                <span class="price-separator">-</span>
+                <input type="number" id="maxPrice" placeholder="Max">
+            </div>
+        </div>
+
+        <!-- Sort Filter -->
+        <div class="filter-group">
+            <label for="sortBy">Sort By</label>
+            <select id="sortBy">
+                <option value="">Default</option>
+                <option value="priceAsc">Price Low → High</option>
+                <option value="priceDesc">Price High → Low</option>
+                <option value="newest">Newest</option>
+            </select>
+        </div>
+
+        <!-- Apply Button -->
+        <button id="applyFilters">Apply Filters</button>
+    </div>
+</section>
+
+<main>
+    <!-- Hero Carousel -->
+    <section class="hero" id="heroSection">
+        <div class="carousel-controls">
+            <span id="prev">&#10094;</span>
+            <span id="next">&#10095;</span>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="productsSection"></section>
+</main>
+
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2025 Akworld. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Terms</a>
+            <span class="divider">|</span>
+            <a href="#">Privacy</a>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script th:src="@{/js/navbar.js}"></script>
+<script th:src="@{/js/home.js}"></script>
+
+</body>
+</html>

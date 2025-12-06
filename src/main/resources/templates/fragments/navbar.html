@@ -1,0 +1,47 @@
+<header th:fragment="navbar" class="navbar">
+    <!-- Logo -->
+    <h1 class="logo" onclick="window.location.href='/home'">Akworld</h1>
+
+    <!-- Search Bar -->
+    <form class="search-bar" id="searchForm">
+        <input type="text" id="searchInput" placeholder="Search for products...">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Right Section -->
+    <div class="right-section">
+
+
+        <!-- User Dropdown -->
+        <div class="user" id="userBtn">
+            <span class="user-icon">&#128373;</span>
+            <span id="userEmail">Guest</span>
+<!--            <span class="dropdown-arrow">&#9660;</span>-->
+            <div class="dropdown" id="userDropdown">
+                <p id="dropdownEmail">Guest</p>
+                <a href="/user/orders">My Orders</a>
+                <a href="/profile">Profile</a>
+                <button id="logoutBtn">Logout</button>
+<!--                <script src="/js/navbar.js" defer></script>-->
+
+
+            </div>
+        </div>
+        <!-- Cart -->
+        <div id="cartBtn" class="cart">
+            <span class="cart-icon">&#128722;</span>
+            <span class="cart-text">Cart</span>
+            <span id="cartCount">0</span>
+        </div>
+    </div>
+</header>
+
+<!-- Category Bar -->
+<nav class="category-bar" id="categoryNav">
+    <div class="category-scroll-container">
+        <div class="all-btn" onclick="window.location.href='/home'">
+            <span>All</span>
+        </div>
+        <!-- Dynamic categories go here -->
+    </div>
+</nav>

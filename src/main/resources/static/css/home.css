@@ -1,0 +1,179 @@
+/* ===== CSS Variables ===== */
+:root {
+    --primary-color: #2874f0;
+    --primary-hover: #0d5fb0;
+    --secondary-color: #172337;
+    --background-color: #f1f2f4;
+    --card-background: #ffffff;
+    --text-primary: #333;
+    --text-secondary: #666;
+    --border-color: #ddd;
+    --shadow-light: 0 1px 4px rgba(0,0,0,0.1);
+    --shadow-medium: 0 2px 8px rgba(0,0,0,0.15);
+    --shadow-heavy: 0 4px 12px rgba(0,0,0,0.2);
+    --border-radius: 8px;
+    --transition-speed: 0.3s;
+}
+
+/* ===== Global Reset ===== */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+/* ===== Category Bar ===== */
+.category-bar {
+    display: flex;
+    background: var(--card-background);
+    padding: 0.8rem 1rem;
+    box-shadow: var(--shadow-light);
+    overflow-x: auto;
+    gap: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+.category-bar::-webkit-scrollbar { display: none; }
+.category-scroll-container { display: flex; gap: 1rem; }
+.category-btn {
+    display: flex; flex-direction: column; align-items: center;
+    cursor: pointer; min-width: 80px; padding: 0.5rem;
+    transition: transform var(--transition-speed);
+}
+.category-btn:hover { transform: scale(1.05); }
+.all-btn {
+    display: flex; align-items: center; justify-content: center;
+    min-width: 70px; padding: 0.8rem 1rem;
+    background: #f8f8f8; border-radius: 10px;
+    cursor: pointer; font-weight: 600;
+    transition: all var(--transition-speed);
+}
+.all-btn:hover { border: 2px solid var(--primary-color); background: #e8f0ff; }
+
+/* ===== Hero Carousel ===== */
+.hero {
+    position: relative; overflow: hidden;
+    border-radius: var(--border-radius);
+    margin: 0.75rem; height: clamp(180px, 35vw, 350px);
+    background: #ddd;
+}
+.carousel-slide {
+    width: 100%; height: 100%; object-fit: cover;
+    display: none; border-radius: var(--border-radius);
+    position: absolute; top: 0; left: 0;
+}
+.carousel-slide.active { display: block; }
+.carousel-controls {
+    position: absolute; top: 50%; width: 100%;
+    display: flex; justify-content: space-between;
+    transform: translateY(-50%);
+    padding: 0 0.5rem; z-index: 10;
+}
+.carousel-controls span {
+    background: rgba(0,0,0,0.5); color: #fff;
+    padding: 0.8rem 1rem; border-radius: 50%;
+    cursor: pointer; user-select: none;
+    transition: background var(--transition-speed);
+}
+.carousel-controls span:hover { background: rgba(0,0,0,0.7); }
+
+/* ===== Product Grid ===== */
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem; margin: 0.75rem; padding: 1rem;
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+}
+.product {
+    background: var(--card-background);
+    padding: 1rem; border-radius: var(--border-radius);
+    text-align: center; display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    cursor: pointer; min-height: 250px; border: 1px solid #eee;
+}
+.product:hover { transform: translateY(-4px); box-shadow: var(--shadow-medium); }
+.product img {
+    width: 100%; max-width: 140px; height: 140px;
+    object-fit: contain; border-radius: 4px; margin-bottom: 0.75rem;
+}
+.product h3 {
+    margin: 0.4rem 0; font-size: 0.9rem; font-weight: 600;
+    color: var(--text-primary); line-height: 1.3;
+    display: -webkit-box; -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical; overflow: hidden;
+}
+.product span { font-weight: bold; color: var(--primary-color); font-size: 1rem; }
+.product button {
+    background: var(--primary-color); color: #fff;
+    border: none; border-radius: 4px;
+    padding: 0.6rem 1rem; cursor: pointer;
+    margin-top: 0.5rem; font-size: 0.85rem; font-weight: 600;
+    width: 100%; transition: background var(--transition-speed);
+}
+.product button:hover { background: var(--primary-hover); }
+
+/* ===== Filters ===== */
+.filters {
+    background: var(--card-background);
+    margin: 0.75rem; border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+}
+.filters-toggle {
+    display: none; justify-content: space-between;
+    align-items: center; padding: 1rem;
+    cursor: pointer; background: var(--primary-color); color: #fff;
+    font-weight: 600;
+}
+.filters-content {
+    display: flex; flex-wrap: wrap; gap: 1rem;
+    padding: 1rem; align-items: flex-end;
+}
+.filter-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.filters select, .filters input {
+    padding: 0.6rem 0.8rem; border-radius: 4px;
+    border: 1px solid var(--border-color);
+    font-size: 0.9rem; outline: none;
+}
+.filters button#applyFilters {
+    background: var(--primary-color); color: #fff;
+    border: none; padding: 0.6rem 1.5rem;
+    border-radius: 4px; cursor: pointer;
+    font-weight: bold; transition: background var(--transition-speed);
+}
+.filters button#applyFilters:hover { background: var(--primary-hover); }
+
+/* ===== Footer ===== */
+footer {
+    text-align: center; padding: 1.5rem 1rem;
+    background: var(--secondary-color); color: #fff;
+    margin-top: 2rem;
+}
+.footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.5rem; }
+footer a { color: #fff; text-decoration: none; transition: opacity var(--transition-speed); }
+footer a:hover { opacity: 0.8; }
+
+/* ===== Responsive ===== */
+@media (max-width: 767px) {
+    .products { grid-template-columns: repeat(2, 1fr); }
+    .product img { max-width: 100px; height: 100px; }
+    .filters-toggle { display: flex; }
+    .filters-content { display: none; flex-direction: column; }
+    .filters-content.active { display: flex; }
+}
+@media (max-width: 575px) {
+    .products { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+    .product { min-height: 200px; padding: 0.6rem; }
+    .product img { max-width: 90px; height: 90px; }
+    .product h3 { font-size: 0.8rem; }
+    .product span { font-size: 0.9rem; }
+    .product button { padding: 0.5rem 0.75rem; font-size: 0.8rem; }
+    .hero { height: 150px; margin: 0.5rem; border-radius: 6px; }
+}

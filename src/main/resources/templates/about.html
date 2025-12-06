@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AkWorld - About</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1173d4",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "content-light": "#111418",
+                        "content-dark": "#f6f7f8",
+                        "subtle-light": "#617589",
+                        "subtle-dark": "#a0b3c6"
+                    },
+                    fontFamily: { "display": ["Work Sans"] },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-content-light dark:text-content-dark">
+
+<!-- Navbar -->
+<header class="w-full bg-primary shadow-sm">
+    <div class="container mx-auto flex items-center justify-between px-6 py-4">
+        <h1 class="text-2xl font-bold text-white cursor-pointer" onclick="window.location.href='/home'">
+            AkWorld
+        </h1>
+        <nav class="hidden md:flex items-center gap-6">
+            <a href="/home" class="text-white hover:text-gray-200 transition-colors">Home</a>
+            <a href="/about" class="text-white hover:text-gray-200 transition-colors font-semibold">About</a>
+            <a href="/login" class="text-white hover:text-gray-200 transition-colors">Login</a>
+            <a href="/register" class="text-white hover:text-gray-200 transition-colors">Sign Up</a>
+        </nav>
+    </div>
+</header>
+
+<main class="flex flex-col flex-1 items-center justify-start py-12 px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-3xl space-y-8">
+        <!-- About Title -->
+        <div class="text-center">
+            <h2 class="text-4xl font-bold text-gray-900 dark:text-white">About AkWorld</h2>
+            <p class="mt-2 text-lg text-subtle-light dark:text-subtle-dark">
+                Your trusted online store for medicinal plants and herbal products.
+            </p>
+        </div>
+
+        <!-- About Content -->
+        <div class="bg-white dark:bg-background-dark/50 p-8 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 space-y-6">
+            <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">Our Mission</h3>
+            <p class="text-gray-700 dark:text-gray-300">
+                AkWorld aims to provide a seamless online shopping experience for customers looking for high-quality medicinal plants
+                and herbal products. We focus on quality, authenticity, and customer satisfaction.
+            </p>
+
+            <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">Why Choose Us?</h3>
+            <ul class="list-disc pl-5 text-gray-700 dark:text-gray-300 space-y-2">
+                <li>High-quality, authentic medicinal plants</li>
+                <li>Easy and secure online shopping</li>
+                <li>Fast delivery and reliable customer support</li>
+                <li>Trustworthy and transparent business practices</li>
+            </ul>
+
+            <h3 class="text-2xl font-semibold text-gray-900 dark:text-white">Contact</h3>
+            <p class="text-gray-700 dark:text-gray-300">
+                Have questions? Reach out to us at
+                <a href="mailto:support@akworld.com" class="text-primary hover:underline">support@akworld.com</a>.
+            </p>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

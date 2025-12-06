@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" th:href="@{/css/products.css}"/>
+</head>
+<body>
+<div class="container">
+    <h1>Product Catalog</h1>
+
+    <div class="product-grid">
+        <!-- Loop through products -->
+        <div class="product-card" th:each="product : ${products}" th:data-id="${product.id}">
+            <img th:if="${product.imageUrl != null}" th:src="${product.imageUrl}" alt="Product Image"/>
+            <div class="product-info">
+                <h2 th:text="${product.name}">Product Name</h2>
+                <p class="price">₹<span th:text="${product.price}">0.00</span></p>
+                <p class="desc" th:text="${product.description}">Description</p>
+            </div>
+            <div class="product-actions">
+                <a th:href="@{/products/view/edit/{id}(id=${product.id})}" class="btn-edit">Edit</a>
+                <button class="btn-delete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/products.js}"></script>
+</body>
+</html>

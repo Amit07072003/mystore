@@ -1,0 +1,166 @@
+/* ===== Navbar Base ===== */
+.navbar {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Logo left, search center, right section right */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-heavy);
+    gap: 1rem;
+}
+
+.logo {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+/* ===== Search Bar ===== */
+.search-bar {
+    flex: 1;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0 1rem;
+}
+.search-bar input {
+    flex: 1;
+    border: none;
+    padding: 0.7rem 1rem;
+    outline: none;
+    font-size: 0.95rem;
+}
+.search-bar button {
+    background: #f0f5ff;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+.search-bar button:hover {
+    background: #e0eaff;
+}
+
+/* ===== Right Section ===== */
+.right-section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-shrink: 0;
+}
+.cart {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+#cartCount {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background: #ff4444;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.7rem;
+}
+
+/* ===== User Dropdown ===== */
+.user {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    top: 120%;
+    right: 0;
+    background: #fff;
+    color: var(--text-primary);
+    min-width: 200px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 0.75rem;
+    box-shadow: var(--shadow-medium);
+}
+.dropdown a, .dropdown button {
+    display: block;
+    width: 100%;
+    padding: 0.6rem 0.5rem;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+.dropdown a:hover {
+    background: #f5f5f5;
+}
+.dropdown button {
+    background: #f44336;
+    color: #fff;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+.dropdown button:hover {
+    background: #d32f2f;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 575px) {
+    .navbar {
+        flex-wrap: nowrap;
+        padding: 0.5rem;
+    }
+    .logo {
+        font-size: 1.2rem;
+    }
+    .search-bar {
+        flex: 1;
+        max-width: none;
+        margin: 0 0.5rem;
+    }
+    .search-bar input {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+    .search-bar button {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+    }
+    .right-section {
+        gap: 0.75rem;
+    }
+}
+/* Hide user email text on mobile */
+@media (max-width: 767px) {
+    #userEmail {
+        display: none;
+    }
+    .cart-text {
+        display: none; /* optional: hide "Cart" label, keep icon + count */
+    }
+}
+@media (max-width: 575px) {
+    .navbar {
+        align-items: center; /* ensures logo, search, and icons line up neatly */
+    }
+    .logo, .search-bar, .right-section {
+        align-self: center;
+    }
+}

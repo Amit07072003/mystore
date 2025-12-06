@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile - Akworld</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+</head>
+<body>
+
+<header class="header">
+    <h1 onclick="window.location.href='/home'">Akworld</h1>
+    <button onclick="window.location.href='/user/orders'">My Orders</button>
+</header>
+
+<main class="profile-container">
+    <h2>My Profile</h2>
+
+    <div class="profile-card">
+        <div class="row">
+            <span class="label">Name</span>
+            <span id="name">Loading...</span>
+        </div>
+        <div class="row">
+            <span class="label">Email</span>
+            <span id="email">Loading...</span>
+        </div>
+        <div class="row">
+            <span class="label">Roles</span>
+            <span id="roles">Loading...</span>
+        </div>
+
+        <div class="actions">
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+</main>
+
+<div style="text-align: center;">
+    <button
+            onclick="window.location.href='/home'"
+            style="
+      background-color:#f44336;
+      color:#fff;
+      border:none;
+      border-radius:25px;
+      padding:0.6rem 1.5rem;
+      font-size:1rem;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 2px 6px rgba(0,0,0,0.2);
+    "
+    >
+        BackToHome
+    </button>
+</div>
+
+<script th:src="@{/js/profile.js}"></script>
+</body>
+</html>
