@@ -100,8 +100,9 @@ public class AuthConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins(
-                                "http://localhost:8080",
-                                "https://evelyn-unrewardable-siena.ngrok-free.dev"
+                                 "http://localhost:8080",
+    "https://evelyn-unrewardable-siena.ngrok-free.dev",
+    "https://mystore-2aa1.onrender.com"
                         )
                         .allowedMethods("GET","POST","DELETE","PUT")
                         .allowCredentials(true);
