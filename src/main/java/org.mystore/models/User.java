@@ -1,12 +1,8 @@
 package org.mystore.models;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Setter
@@ -15,30 +11,23 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "user") // avoid reserved keyword issues by explicitly naming
 public class User extends BaseModel {
+
     private String name;
 
+    @Column(unique = true, nullable = false)
     private String email;
 
     private String password;
 
     private String phoneNumber;
 
-
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "user_role_list", // explicit join table
+        joinColumns = @JoinColumn(name = "user_id"), // FK to User
+        inverseJoinColumns = @JoinColumn(name = "role_id") // FK to Role
+    )
     private List<Role> roleList = new ArrayList<>();
-
-
-
-//    public User(Long id) {
-//        this.setId(id);
-//    }
-
 }
-
-
-//1         M
-//USER     ROLE
-//M          1
-//
-//M    :  M
