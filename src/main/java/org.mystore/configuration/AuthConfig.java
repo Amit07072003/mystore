@@ -36,12 +36,19 @@ public class AuthConfig {
                                 "/home",
                                 "/cart",
                                 "/product-detail",
-                                "/api/payment/success/**",
+                                
                                 "/search",
                                 "/about", 
-                                 "/api/payment/success",
+                                 
                                  "/api/payment/webhook",
-                                 "/api/payment/**"
+                                
+                            
+                             "/api/payment/success",
+        "/api/payment/success/**",
+        "/api/payment/webhook",
+        "/api/payment/webhook/**",
+        "/api/payment/callback",
+        "/api/payment/callback/**"
                         ).permitAll()
 
 
