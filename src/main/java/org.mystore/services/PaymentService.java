@@ -75,8 +75,9 @@ paymentLinkRequest.put("reference_id", uniqueRefId);
             notes.put("user_id", order.getUser().getId());
             paymentLinkRequest.put("notes", notes);
 
-            paymentLinkRequest.put("callback_url", "https://evelyn-unrewardable-siena.ngrok-free.dev/api/payment/success");
-            paymentLinkRequest.put("callback_method", "get");
+          paymentLinkRequest.put("callback_url", "https://mystore-2aa1.onrender.com/api/payment/success");
+paymentLinkRequest.put("callback_method", "get");
+
 
             PaymentLink payment = client.paymentLink.create(paymentLinkRequest);
 
