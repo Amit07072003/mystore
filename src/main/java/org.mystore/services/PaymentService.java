@@ -53,8 +53,9 @@ public class PaymentService {
             JSONObject paymentLinkRequest = new JSONObject();
             paymentLinkRequest.put("amount", amountInRupees * 100); // convert to paise for Razorpay
             paymentLinkRequest.put("currency", "INR");
-        paymentLinkRequest.put("reference_id", String.valueOf(order.getId()));
-   paymentLinkRequest.put("description", "Payment for Order #" + order.getId());
+    String uniqueRef = "ORDER-" + order.getId() + "-" + System.currentTimeMillis();
+paymentLinkRequest.put("reference_id", uniqueRef);
+
 
             paymentLinkRequest.put("description", "Payment for Order #" + order.getId());
 
