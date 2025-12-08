@@ -3,52 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <title>Order Success</title>
-    <link rel="stylesheet" href="/css/styles.css"> <!-- your main CSS -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             background-color: #f6f7f8;
             font-family: Arial, sans-serif;
         }
-        .success-container {
-            max-width: 600px;
-            margin: 50px auto;
-            text-align: center;
+
+        /* Navbar */
+        .navbar {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 15px;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
         }
-        .card-sh {
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            padding: 30px;
-        }
+
+        /* Buttons */
         .btn {
-            padding: 10px 25px;
+            padding: 10px 20px;
             border-radius: 8px;
             text-decoration: none;
             display: inline-block;
-            margin: 10px 5px;
             font-weight: bold;
+            font-size: 15px;
+            text-align: center;
+            transition: 0.2s ease;
         }
+
         .btn-primary {
             background-color: #1173d4;
             color: white;
         }
+
+        .btn-primary:hover {
+            background-color: #0d5cad;
+        }
+
         .btn-secondary {
             background-color: #6c757d;
             color: white;
         }
+
+        .btn-secondary:hover {
+            background-color: #565e64;
+        }
+
+        /* Success Container */
+        .success-container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 15px;
+        }
+
+        .card-sh {
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+            padding: 30px;
+            text-align: center;
+        }
+
         h2.text-success {
             color: #28a745;
+            font-size: 26px;
+            margin-bottom: 10px;
         }
+
         .order-details {
             text-align: left;
-            margin-top: 20px;
+            margin-top: 25px;
+            font-size: 16px;
         }
+
         .order-details p {
-            margin: 5px 0;
+            margin-bottom: 8px;
+        }
+
+        /* Buttons wrapper */
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 15px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 480px) {
+            .card-sh {
+                padding: 20px;
+            }
+
+            h2.text-success {
+                font-size: 22px;
+            }
+
+            .order-details {
+                font-size: 15px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 12px;
+            }
         }
     </style>
 </head>
+
 <body>
+
 <header>
     <nav class="navbar">
         <a href="/home" class="btn btn-primary">Home</a>
@@ -63,7 +148,6 @@
         <p>Your payment was successful.</p>
 
         <div class="order-details">
-<!--            <p><strong>Order ID:</strong> [[${razorpayReferenceId}]]</p>-->
             <p><strong>Amount Paid:</strong> ₹[[${amount}]]</p>
             <p><strong>Payment Status:</strong> [[${razorpayStatus}]]</p>
         </div>
@@ -75,8 +159,9 @@
     </div>
 </div>
 
-<footer style="text-align:center; margin-top:50px;">
+<footer>
     <p>&copy; 2025 YourEcommerce. All rights reserved.</p>
 </footer>
+
 </body>
 </html>
