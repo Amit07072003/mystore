@@ -24,33 +24,45 @@ public class PaymentSuccessGet {
     public String paymentSuccess(
             @RequestParam("razorpay_payment_id") String razorpayPaymentId,
             @RequestParam("razorpay_payment_link_id") String razorpayPaymentLinkId,
-            @RequestParam("razorpay_payment_link_reference_id") Long razorpayReferenceId,
+            @RequestParam("razorpay_payment_link_reference_id") String razorpayReferenceId,
             @RequestParam("razorpay_payment_link_status") String razorpayStatus,
             @RequestParam("razorpay_signature") String razorpaySignature,
             Model model
     ) {
-        System.out.println("payment success controller");
+        
+    System.out.println("payment success controller");
 
-        Long amount = 0L;
-        Long userId = null;
+    Long amount = 0L;
+    Long userId = null;
 
-        if ("paid".equalsIgnoreCase(razorpayStatus)) {
-            Order order = orderService.getOrderById(razorpayReferenceId); // fetch order entity
-            if (order != null) {
-                amount = order.getTotalAmount();
-//                userId = order.getUser().getId(); // assuming Order has a User object
-//                orderService.processSuccessfulPayment(order.getId(), amount, userId);
-            }
+    // Extract real orderId from reference string
+    // Example: ORDER-35-1733670839421
+    Long orderId = null;
+    try {
+        String[] refParts = razorpayReferenceId.split("-");
+        orderId = Long.parseLong(refParts[1]);
+    } catch (Exception e) {
+        System.out.println("Invalid reference_id format: " + razorpayReferenceId);
+        return "error";
+    }
+
+    if ("paid".equalsIgnoreCase(razorpayStatus)) {
+        Order order = orderService.getOrderById(orderId);
+
+        if (order != null) {
+            amount = order.getTotalAmount();
+            // userId = order.getUser().getId();
         }
+    }
 
-        // Pass all values to Thymeleaf
-        model.addAttribute("razorpayPaymentId", razorpayPaymentId);
-        model.addAttribute("razorpayPaymentLinkId", razorpayPaymentLinkId);
-        model.addAttribute("razorpayReferenceId", razorpayReferenceId);
-        model.addAttribute("razorpayStatus", razorpayStatus);
-        model.addAttribute("razorpaySignature", razorpaySignature);
-        model.addAttribute("amount", amount);
+    model.addAttribute("razorpayPaymentId", razorpayPaymentId);
+    model.addAttribute("razorpayPaymentLinkId", razorpayPaymentLinkId);
+    model.addAttribute("razorpayReferenceId", razorpayReferenceId);
+    model.addAttribute("orderId", orderId);
+    model.addAttribute("razorpayStatus", razorpayStatus);
+    model.addAttribute("razorpaySignature", razorpaySignature);
+    model.addAttribute("amount", amount);
 
-        return "order-success";
+    return "order-success";
     }
 }
