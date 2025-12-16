@@ -4,6 +4,7 @@ package org.mystore.dtos;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 @Schema(
         name = "Product",
@@ -15,7 +16,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder
 
-public class ProductDTO {
+public class ProductDTO implements Serializable {
     private Long id;
     private String name;
     private String description;
