@@ -13,10 +13,13 @@ import org.mystore.repositories.CartItemRepository;
 import org.mystore.repositories.CategoryRepository;
 import org.mystore.repositories.ProductRepository;
 import org.mystore.repositories.UserRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +30,8 @@ private ProductRepository productRepository;
 private CategoryRepository categoryRepository;
 private CartItemRepository cartItemRepository;
 private UserRepo userRepository;
+@Autowired
+private RedisTemplate<String, Object> redisTemplate;
 
 public ProductDTO createProduct(ProductDTO dto){
 
@@ -43,15 +48,45 @@ public ProductDTO createProduct(ProductDTO dto){
     return ProductMapper.toDto(product);
 
 }
+
+//if found in redis
+    // then return
+    // else
+    //call db and
+    //cache it and
+    // return it
+
 //getAllProducts
 public List<ProductDTO> getAllProducts(){
-    List<Product> products= productRepository.findAll();
-    List<ProductDTO> productDTOs=new ArrayList<>();
-    for (Product product : products) {
-        ProductDTO dto = ProductMapper.toDto(product); // ✅ maps products too
-        productDTOs.add(dto);
+//    List<Product> products= productRepository.findAll();
+//    List<ProductDTO> productDTOs=new ArrayList<>();
+//    for (Product product : products) {
+//        ProductDTO dto = ProductMapper.toDto(product); // ✅ maps products too
+//        productDTOs.add(dto);
+//    }
+//    return   productDTOs;
+
+    String key = "products:all";
+
+    // 1. Check Redis
+    Object cachedData = redisTemplate.opsForValue().get(key);
+    if (cachedData != null) {
+        System.out.println("Fetched all products from Redis");
+        return (List<ProductDTO>) cachedData;
     }
-    return   productDTOs;
+
+    // 2. Fetch from DB
+    List<Product> products = productRepository.findAll();
+    List<ProductDTO> productDTOs = new ArrayList<>();
+    for (Product product : products) {
+        productDTOs.add(ProductMapper.toDto(product));
+    }
+
+    // 3. Cache result in Redis for 10 minutes
+    redisTemplate.opsForValue().set(key, productDTOs, Duration.ofMinutes(10));
+    System.out.println("Fetched all products from Database");
+
+    return productDTOs;
 }
 
 //getProductsById
