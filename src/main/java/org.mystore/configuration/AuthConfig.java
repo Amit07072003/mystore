@@ -39,6 +39,7 @@ public class AuthConfig {
                                 
                                 "/search",
                                 "/about", 
+                            "/swagger-ui/**,
                                  
                                  "/api/payment/webhook",
                                 
