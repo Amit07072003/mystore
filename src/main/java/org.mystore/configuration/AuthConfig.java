@@ -18,89 +18,87 @@ public class AuthConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
 
         http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth
-                        // ---------- Public endpoints ----------
+            .csrf(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(auth -> auth
+                // ---------- Public endpoints ----------
+                .requestMatchers(
+                    "/auth/**",
+                    "/api/auth/**",
+                    "/login",
+                    "/register",
+                    "/css/**",
+                    "/js/**",
+                    "/images/**",
+                    "/validateToken",
+                    "/razorpayWebhook",
+                    "/home",
+                    "/cart",
+                    "/product-detail",
+                    "/search",
+                    "/about",
 
-                                // ---------- Public endpoints ----------
-                        .requestMatchers(
-                                "/auth/**",
-                                "/api/auth/**",
-                                "/login",
-                                "/register",
-                                "/css/**",
-                                "/js/**",
-                                "/images/**",
-                                "/validateToken",
-                                "/razorpayWebhook",
-                                "/home",
-                                "/cart",
-                                "/product-detail",
-                                
-                                "/search",
-                                "/about", 
-                            "/swagger-ui/**",
-                            "/v3/api-docs/**",
-                            "/v2/api-docs/**",
-                                
-                                 "/api/payment/webhook",
-                                
-                            
-                             "/api/payment/success",
-        "/api/payment/success/**",
-        "/api/payment/webhook",
-        "/api/payment/webhook/**",
-        "/api/payment/callback",
-        "/api/payment/callback/**"
-                        ).permitAll()
+                    // ---------- Swagger / OpenAPI ----------
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/v3/api-docs/**",
+                    "/v3/api-docs/swagger-config",
+                    "/v2/api-docs/**",
+                    "/webjars/**",
 
+                    // ---------- Payment ----------
+                    "/api/payment/webhook",
+                    "/api/payment/success",
+                    "/api/payment/success/**",
+                    "/api/payment/webhook/**",
+                    "/api/payment/callback",
+                    "/api/payment/callback/**"
+                ).permitAll()
 
+                // ---------- Forgot/reset password ----------
+                .requestMatchers("/forgot-password/**").permitAll()
+                .requestMatchers("/resetpassword/**").permitAll()
+                .requestMatchers("/test-email").permitAll()
 
-                        // ---------- Forgot/reset password (both GET + POST) ----------
-                        .requestMatchers("/forgot-password/**").permitAll()
-                        .requestMatchers("/resetpassword/**").permitAll()
-                        .requestMatchers("/test-email").permitAll()
+                // ---------- Public read-only APIs ----------
+                .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/search/**").permitAll()
 
-                        // ---------- Public read-only APIs ----------
-                        .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/search/**").permitAll()
+                // ---------- Product management (Admin & Seller) ----------
+                .requestMatchers(HttpMethod.POST, "/api/products/**").hasAnyRole("ADMIN","SELLER")
+                .requestMatchers(HttpMethod.PUT, "/api/products/**").hasAnyRole("ADMIN","SELLER")
+                .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAnyRole("ADMIN","SELLER")
+                .requestMatchers(HttpMethod.GET, "/products/view/create").hasAnyRole("ADMIN","SELLER")
+                .requestMatchers(HttpMethod.POST, "/products/view/create").hasAnyRole("ADMIN","SELLER")
+                .requestMatchers("/products/view/edit/**").hasAnyRole("ADMIN","SELLER")
+                .requestMatchers("/products/view/**").authenticated()
 
-                        // ---------- Product management (Admin & Seller) ----------
-                        .requestMatchers(HttpMethod.POST, "/api/products/**").hasAnyRole("ADMIN","SELLER")
-                        .requestMatchers(HttpMethod.PUT, "/api/products/**").hasAnyRole("ADMIN","SELLER")
-                        .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAnyRole("ADMIN","SELLER")
-                        .requestMatchers(HttpMethod.GET, "/products/view/create").hasAnyRole("ADMIN","SELLER")
-                        .requestMatchers(HttpMethod.POST, "/products/view/create").hasAnyRole("ADMIN","SELLER")
-                        .requestMatchers("/products/view/edit/**").hasAnyRole("ADMIN","SELLER")
-                        .requestMatchers("/products/view/**").authenticated()
+                // ---------- Category management (Admin only) ----------
+                .requestMatchers(HttpMethod.POST, "/categories/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/categories/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/categories/**").hasRole("ADMIN")
 
-                        // ---------- Category management (Admin only) ----------
-                        .requestMatchers(HttpMethod.POST, "/categories/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/categories/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/categories/**").hasRole("ADMIN")
+                // ---------- Cart operations ----------
+                .requestMatchers(HttpMethod.GET,"/api/cart/**").permitAll()
+                .requestMatchers(HttpMethod.GET,"/api/cart/count/**").permitAll()
+                .requestMatchers(HttpMethod.POST,"/api/cart/add/**").hasRole("USER")
+                .requestMatchers(HttpMethod.POST,"/api/cart/remove/**").hasRole("USER")
+                .requestMatchers(HttpMethod.POST,"/api/cart/increase/**").hasRole("USER")
+                .requestMatchers(HttpMethod.POST,"/api/cart/decrease/**").hasRole("USER")
+                .requestMatchers(HttpMethod.POST,"/api/payment/checkout").hasRole("USER")
 
-                        // ---------- Cart operations ----------
-                        .requestMatchers(HttpMethod.GET,"/api/cart/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/api/cart/count/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/cart/add/**").hasRole("USER")
-                        .requestMatchers(HttpMethod.POST,"/api/cart/remove/**").hasRole("USER")
-                        .requestMatchers(HttpMethod.POST,"/api/cart/increase/**").hasRole("USER")
-                        .requestMatchers(HttpMethod.POST,"/api/cart/decrease/**").hasRole("USER")
-                        .requestMatchers(HttpMethod.POST,"/api/payment/checkout").hasRole("USER")
+                // ---------- Admin endpoints ----------
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers("/admin/dashboard").hasRole("ADMIN")
+                .requestMatchers("/buyer/dashboard").hasRole("USER")
+                .requestMatchers("/seller/dashboard").hasRole("SELLER")
 
-                        // ---------- Admin endpoints ----------
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/admin/dashboard").hasRole("ADMIN")
-                        .requestMatchers("/buyer/dashboard").hasRole("USER")
-                        .requestMatchers("/seller/dashboard").hasRole("SELLER")
-
-                        // ---------- All others require authentication ----------
-                        .anyRequest().authenticated()
-                )
-                .addFilterBefore(jwtAuthFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
-                .formLogin(AbstractHttpConfigurer::disable)
-                .httpBasic(AbstractHttpConfigurer::disable);
+                // ---------- All others require authentication ----------
+                .anyRequest().authenticated()
+            )
+            .addFilterBefore(jwtAuthFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
+            .formLogin(AbstractHttpConfigurer::disable)
+            .httpBasic(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
@@ -112,14 +110,14 @@ public class AuthConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins(
-                                 "http://localhost:8080",
-    "https://evelyn-unrewardable-siena.ngrok-free.dev",
-    "https://mystore-2aa1.onrender.com"
-                        )
-                        .allowedMethods("GET","POST","DELETE","PUT")
-                        .allowCredentials(true);
+                    .allowedOrigins(
+                        "http://localhost:8080",
+                        "https://evelyn-unrewardable-siena.ngrok-free.dev",
+                        "https://mystore-2aa1.onrender.com"
+                    )
+                    .allowedMethods("GET","POST","DELETE","PUT")
+                    .allowCredentials(true);
             }
         };
     }
-}
+                    }
